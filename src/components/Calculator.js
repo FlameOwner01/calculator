@@ -8,6 +8,7 @@ const Calculator = () =>{
     const [inputValue, setInputValue] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState("");
+    const [disabled, setDisabled] = useState(false);
    
     let  input = [];
   
@@ -18,6 +19,7 @@ const Calculator = () =>{
         setMessage("");
         setShowMessage(false);
         document.getElementById("input-field").value ="";
+        setDisabled(false);
         
     }
    
@@ -96,9 +98,9 @@ const Calculator = () =>{
 
             
                 if(operandsCounter - operatorsCounter === 1 && (operandsCounter>1 && operatorsCounter>0)){
-                  
+                    setDisabled(true);
                     document.getElementById("input-field").value =document.getElementById("input-field").value + " = "+ CalculatorFunctions(operands, operators);
-    
+                    
                 }else if(operandsCounter - operatorsCounter > 1){
                     setShowMessage(true);
                         setMessage("Somethings went wrong! Check the number of OPERANDS!");
@@ -137,7 +139,7 @@ const Calculator = () =>{
             <button className = "buttons" onClick = {clearInput}>
                 Clear
             </button>
-            <button className = "buttons" onClick = {computeInput}>
+            <button className = "buttons" id="compute" disabled={disabled} onClick = {computeInput}>
                 Compute
             </button>
 {
